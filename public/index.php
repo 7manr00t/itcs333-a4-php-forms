@@ -44,14 +44,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
   <meta charset="utf-8">
   <title>Contact Us</title>
+  <style>
+    .error { color: red; font-weight: bold; }
+  </style>
 </head>
 <body>
   <h1>Contact Us</h1>
-  <!-- TODO: render the form, inline errors, and repopulated values -->
+
   <form method="post" action="index.php">
-    <label>Name <input type="text" name="name"></label><br>
-    <label>Email <input type="email" name="email"></label><br>
-    <label>Message <textarea name="message"></textarea></label><br>
+    <p>
+      <label>Name
+        <input type="text" name="name"
+               value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
+      </label>
+      <?php if (isset($errors['name'])) echo "<span class='error'>" . htmlspecialchars($errors['name']) . "</span>"; ?>
+    </p>
+
+    <p>
+      <label>Email
+        <input type="email" name="email"
+               value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : ''; ?>">
+      </label>
+      <?php if (isset($errors['email'])) echo "<span class='error'>" . htmlspecialchars($errors['email']) . "</span>"; ?>
+    </p>
+
+    <p>
+      <label>Message
+        <textarea name="message"><?php echo isset($_POST['message']) ? htmlspecialchars($_POST['message']) : ''; ?></textarea>
+      </label>
+      <?php if (isset($errors['message'])) echo "<span class='error'>" . htmlspecialchars($errors['message']) . "</span>"; ?>
+    </p>
+
     <button type="submit">Send</button>
   </form>
 </body>
